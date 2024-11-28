@@ -21,9 +21,17 @@ async function parseGitDiff(keywords) {
     for (const keyword of keywords) {
       if (patch.includes(keyword)) {
         core.info(`Keyword "${keyword}" found in file: ${file.filename}`);
+        
+        await octokit.issues.addLabels({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          issue_number: context.payload.pull_request.number,
+          labels: [keyword],
+        });
       }
     }
   }
+
 }
 
 try {
