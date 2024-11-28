@@ -1,0 +1,13 @@
+name: 'git diff pr label'
+description: 'Apply labels to a PR based on keywords in the git diff'
+inputs:
+  keywords:  # id of input
+    description: 'Keywords to search for in the git diff'
+    required: true
+    default: '["todo", "fixme", "bug"]'
+  repo-token:
+    description: "GitHub token with necessary permissions"
+    required: true
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
