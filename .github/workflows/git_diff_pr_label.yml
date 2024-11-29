@@ -1,0 +1,26 @@
+name: Label PR Based on Diff
+
+on:
+  pull_request:
+    types: [synchronize, opened]
+
+jobs:
+  labeler:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install GitHub CLI
+      run: sudo apt-get install -y gh
+
+    - name: Run git diff pr label action
+      uses: ./
+      with:
+        github-token: ${{ secrets.GH_TOKEN }}
