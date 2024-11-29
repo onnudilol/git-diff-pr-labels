@@ -11,6 +11,9 @@ async function parseGitDiff(keywords) {
   const base = context.payload.pull_request.base.sha;
   const head = context.payload.pull_request.head.sha;
 
+  core.info(base)
+  core.info(head)
+
   const response = await octokit.repos.compareCommitsWithBasehead({
     owner: context.repo.owner,
     repo: context.repo.repo,
