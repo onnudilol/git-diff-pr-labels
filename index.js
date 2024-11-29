@@ -2,7 +2,7 @@ const core = require("@actions/core");
 const github = require("@actions/github");
 
 async function parseGitDiff(keywords) {
-  const token = core.getInput("repo-token");
+  const token = core.getInput("github-token");
   const octokit = github.getOctokit(token);
   const context = github.context;
 

@@ -31815,7 +31815,7 @@ const core = __nccwpck_require__(8860);
 const github = __nccwpck_require__(2108);
 
 async function parseGitDiff(keywords) {
-  const token = core.getInput("repo-token");
+  const token = core.getInput("github-token");
   const octokit = github.getOctokit(token);
   const context = github.context;
 
