@@ -31826,6 +31826,8 @@ async function parseGitDiff(keywords) {
 
   core.info(base)
   core.info(head)
+  core.info(context.repo.owner)
+  core.info(context.repo.repo)
 
   const response = await octokit.repos.compareCommitsWithBasehead({
     owner: context.repo.owner,
