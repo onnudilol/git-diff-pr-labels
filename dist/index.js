@@ -31821,8 +31821,8 @@ async function parseGitDiff(keywords) {
   const octokit = github.getOctokit(token);
   const context = github.context;
 
-  const base = context.payload.pull_request.base.sha;
-  const head = context.payload.pull_request.head.sha;
+  const base = context.payload.pull_request.base;
+  const head = context.payload.pull_request.head;
 
   core.info(base)
   core.info(head)
