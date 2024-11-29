@@ -31816,11 +31816,16 @@ const github = __nccwpck_require__(2108);
 
 async function parseGitDiff(keywords) {
   const token = core.getInput("github-token");
+
+  console.log(token)
   const octokit = github.getOctokit(token);
   const context = github.context;
 
   const base = context.payload.pull_request.base.sha;
   const head = context.payload.pull_request.head.sha;
+
+  core.info(base)
+  core.info(head)
 
   const response = await octokit.repos.compareCommitsWithBasehead({
     owner: context.repo.owner,
