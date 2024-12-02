@@ -31815,25 +31815,34 @@ const core = __nccwpck_require__(8860);
 const github = __nccwpck_require__(2108);
 
 async function parseGitDiff(keywords) {
-  const token = core.getInput("repo-token");
+  const token = core.getInput("github-token");
+
   const octokit = github.getOctokit(token);
   const context = github.context;
 
-  const base = context.payload.pull_request.base.sha;
-  const head = context.payload.pull_request.head.sha;
+  const base = context.payload.pull_request.base.ref;
+  const head = context.payload.pull_request.head.ref;
 
-  const response = await octokit.repos.compareCommitsWithBasehead({
+  const response = await octokit.rest.repos.compareCommitsWithBasehead({
     owner: context.repo.owner,
     repo: context.repo.repo,
     basehead: `${base}...${head}`,
   });
 
+//   todo test workflow
   const files = response.data.files;
   for (const file of files) {
     const patch = file.patch;
     for (const keyword of keywords) {
       if (patch.includes(keyword)) {
         core.info(`Keyword "${keyword}" found in file: ${file.filename}`);
+
+        await octokit.rest.issues.addLabels({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          issue_number: context.payload.pull_request.number,
+          labels: [keyword],
+        });
       }
     }
   }

@@ -5,7 +5,7 @@ inputs:
     description: 'Keywords to search for in the git diff'
     required: true
     default: '["todo", "fixme", "bug"]'
-  repo-token:
+  github-token:
     description: "GitHub token with necessary permissions"
     required: true
 runs:
