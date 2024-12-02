@@ -31829,10 +31829,9 @@ async function parseGitDiff(keywords) {
     basehead: `${base}...${head}`,
   });
 
-//   todo test workflow
   const files = response.data.files;
   for (const file of files) {
-    const patch = file.patch;
+    const patch = file.patch.toLowerCase();
     for (const keyword of keywords) {
       if (patch.includes(keyword)) {
         core.info(`Keyword "${keyword}" found in file: ${file.filename}`);
@@ -31849,7 +31848,7 @@ async function parseGitDiff(keywords) {
 }
 
 try {
-  const keywords = JSON.parse(core.getInput("keywords"));
+  const keywords = JSON.parse(core.getInput("keywords")).map(k => k.toLowerCase());
   parseGitDiff(keywords);
 } catch (error) {
   core.setFailed(error.message);

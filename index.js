@@ -16,10 +16,8 @@ async function parseGitDiff(keywords) {
     basehead: `${base}...${head}`,
   });
 
-//   todo test workflow
   const files = response.data.files;
   for (const file of files) {
-    // TODO set keyword and patch to lowercase
     const patch = file.patch.toLowerCase();
     for (const keyword of keywords) {
       if (patch.includes(keyword)) {
