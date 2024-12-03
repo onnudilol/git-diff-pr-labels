@@ -29,7 +29,7 @@ jobs:
                 uses: onnudilol/git-diff-pr-labels@v1
                 with:
                     github-token: ${{ secrets.GITHUB_TOKEN }}
-                    keywords: '["todo", "fixme", "bug"]'
+                    keywords: '[{"keyword": "todo", "label": "todo"}, {"keyword": "fixme", "label": "fixme"}, {"keyword": "bug", "label": "bug"}]'
 ```
 
 

@@ -4,7 +4,7 @@ inputs:
   keywords:  # id of input
     description: 'Keywords to search for in the git diff'
     required: true
-    default: '["todo", "fixme", "bug"]'
+    default: '[{keyword: "todo", label: "todo"}, {keyword: "fixme" label: "fixme"}, {keyword: "bug", label: "bug}"]'
   github-token:
     description: "GitHub token with necessary permissions"
     required: true
