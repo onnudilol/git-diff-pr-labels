@@ -19,20 +19,17 @@ async function parseGitDiff(keywords) {
   const files = response.data.files;
   for (const keyword of keywords) {
     for (const file of files) {
-      // bug fix: check if patch is defined
       if (typeof file.patch !== 'undefined') {
         const patch = file.patch.toLowerCase();
         if (patch.includes(keyword)) {
           core.info(`Keyword "${keyword}" found in file: ${file.filename}`);
 
-          // fixme: add label to the PR
           await octokit.rest.issues.addLabels({
             owner: context.repo.owner,
             repo: context.repo.repo,
             issue_number: context.payload.pull_request.number,
             labels: [keyword],
           });
-          // todo test workflow
           break;
         }
       }
