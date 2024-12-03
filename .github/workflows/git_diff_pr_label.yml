@@ -20,6 +20,9 @@ jobs:
     - name: Install GitHub CLI
       run: sudo apt-get install -y gh
 
+    - name: Build script
+      run: npm run build
+
     - name: Run git diff pr label action
       uses: ./
       with:

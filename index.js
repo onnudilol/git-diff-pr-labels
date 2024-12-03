@@ -16,11 +16,10 @@ async function parseGitDiff(keywords) {
     basehead: `${base}...${head}`,
   });
 
-//   todo test workflow
   const files = response.data.files;
-  for (const file of files) {
-    const patch = file.patch;
-    for (const keyword of keywords) {
+  for (const keyword of keywords) {
+    for (const file of files) {
+      const patch = file.patch;
       if (patch.includes(keyword)) {
         core.info(`Keyword "${keyword}" found in file: ${file.filename}`);
 
@@ -30,6 +29,8 @@ async function parseGitDiff(keywords) {
           issue_number: context.payload.pull_request.number,
           labels: [keyword],
         });
+        // todo test workflow
+        break;
       }
     }
   }
