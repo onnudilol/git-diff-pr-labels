@@ -22,7 +22,7 @@ async function parseGitDiff(keywords) {
       if (typeof file.patch !== 'undefined') {
         const patch = file.patch.toLowerCase();
         if (patch.includes(keyword.keyword)) {
-          core.info(`Keyword "${keyword}" found in file: ${file.filename}`);
+          core.info(`Keyword "${keyword.keyword}" found in file: ${file.filename}`);
 
           await octokit.rest.issues.addLabels({
             owner: context.repo.owner,
