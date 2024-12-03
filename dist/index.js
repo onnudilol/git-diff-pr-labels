@@ -31833,7 +31833,7 @@ async function parseGitDiff(keywords) {
   for (const keyword of keywords) {
     for (const file of files) {
       core.info(typeof file.patch)
-      if (typeof file.patch !== undefined) {
+      if (typeof file.patch === undefined) {
         const patch = file.patch.toLowerCase();
         if (patch.includes(keyword)) {
           core.info(`Keyword "${keyword}" found in file: ${file.filename}`);
