@@ -19,26 +19,29 @@ async function parseGitDiff(keywords) {
   const files = response.data.files;
   for (const keyword of keywords) {
     for (const file of files) {
-      core.info(file.patch)
-      const patch = file.patch.toLowerCase();
-      if (patch.includes(keyword)) {
-        core.info(`Keyword "${keyword}" found in file: ${file.filename}`);
+      if (typeof file.patch !== undefined) {
+        const patch = file.patch.toLowerCase();
+        if (patch.includes(keyword)) {
+          core.info(`Keyword "${keyword}" found in file: ${file.filename}`);
 
-        await octokit.rest.issues.addLabels({
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          issue_number: context.payload.pull_request.number,
-          labels: [keyword],
-        });
-        // todo test workflow
-        break;
+          await octokit.rest.issues.addLabels({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.payload.pull_request.number,
+            labels: [keyword],
+          });
+          // todo test workflow
+          break;
+        }
       }
     }
   }
 }
 
 try {
-  const keywords = JSON.parse(core.getInput("keywords")).map(k => k.toLowerCase());
+  const keywords = JSON.parse(core.getInput("keywords")).map((k) =>
+    k.toLowerCase()
+  );
   parseGitDiff(keywords);
 } catch (error) {
   core.setFailed(error.message);
